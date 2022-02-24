@@ -15,6 +15,8 @@ class _StreamBasicState extends State<StreamBasic> {
 
   bool _pageDispose = false;
 
+  late Stream<int> _stream;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,8 +79,6 @@ class _StreamBasicState extends State<StreamBasic> {
             alignment: Alignment.center,
             child: const Text("Stream basic", style: TextStyle(fontSize: 20))));
   }
-
-  late Stream<int> _stream;
 
   Stream<int> countStream(int to) async* {
     for (int i = 1; i <= to; i++) {

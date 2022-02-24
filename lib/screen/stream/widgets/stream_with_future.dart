@@ -10,7 +10,6 @@ class StreamWithFuture extends StatefulWidget {
 }
 
 class _StreamWithFutureState extends State<StreamWithFuture> {
-
   RxInt sum = 0.obs;
   bool _pageDispose = false;
 
@@ -57,10 +56,7 @@ class _StreamWithFutureState extends State<StreamWithFuture> {
       },
       child: Container(
         alignment: Alignment.center,
-        child: const Text(
-          "Stream with future",
-          style: TextStyle(fontSize: 20),
-        ),
+        child: const Text("Stream with future", style: TextStyle(fontSize: 20)),
       ),
     );
   }
@@ -78,7 +74,7 @@ class _StreamWithFutureState extends State<StreamWithFuture> {
       if (_pageDispose) {
         break;
       }
-      await Future.delayed(const Duration(milliseconds: 20));
+      print(value);
       sum.value += value;
     }
   }

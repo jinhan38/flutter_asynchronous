@@ -19,8 +19,13 @@ class _StreamProgressState extends State<StreamProgress> {
   ///프로그레스바의 가로 최대 넓이
   final double _maxWidth = 300;
 
+  ///stream이 마무리 됐는지 안됐는지 체크
   final RxBool _streamComplete = false.obs;
 
+  ///스트림이 실행중인 경우 false,
+  bool _streamEnable = true;
+
+  ///stream for문에 사용될 index 값
   int to = 100;
 
   @override
@@ -38,10 +43,11 @@ class _StreamProgressState extends State<StreamProgress> {
           ],
         ),
 
-        ///프로그레스 위젯
+        ///프로그레스 수치 값 보여주는 text 위젯
         _progressValue(),
         const SizedBox(height: 20),
 
+        ///프로그레스 막대 위젯
         _progressBar(),
       ],
     );
@@ -63,11 +69,13 @@ class _StreamProgressState extends State<StreamProgress> {
   Widget _start() {
     return ElevatedButton(
         onPressed: () {
-          if (_streamComplete.value) {
+          if (_streamEnable) {
+            _streamEnable = false;
             _initData();
             _streamComplete.value = false;
             _countStream(to: to, duration: const Duration(milliseconds: 10))
                 .listen((event) {
+              print(event);
               _progress.value = event;
               if (_width.value >= _maxWidth) {
                 _width.value = _maxWidth;
@@ -75,6 +83,7 @@ class _StreamProgressState extends State<StreamProgress> {
                 _width.value += _calcWidth(maxWidth: _maxWidth, to: to);
               }
             }).onDone(() {
+              _streamEnable = true;
               _streamComplete.value = true;
             });
           }
@@ -86,9 +95,7 @@ class _StreamProgressState extends State<StreamProgress> {
   Widget _progressValue() {
     return Obx(() {
       String completeText = "";
-      if (_progress.value == 0) {
-        completeText = "";
-      } else {
+      if (_progress.value != 0) {
         completeText = _streamComplete.value ? "완료" : "진행중";
       }
       return Text("${_progress.value} $completeText",
@@ -120,8 +127,10 @@ class _StreamProgressState extends State<StreamProgress> {
       maxWidth / to;
 
   ///스트림
-  Stream<int> _countStream(
-      {required int to, required Duration duration}) async* {
+  Stream<int> _countStream({
+    required int to,
+    required Duration duration,
+  }) async* {
     for (int i = 0; i <= to; i++) {
       await Future.delayed(duration);
       yield i;

@@ -46,18 +46,6 @@ class _StreamScreenState extends State<StreamScreen>
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const SizedBox(height: 50),
-        ElevatedButton(
-            onPressed: () {
-              Note().start();
-            },
-            child: Text("note")),
-        const SizedBox(height: 50),
-        ElevatedButton(
-            onPressed: () async{
-              await FutureNote().start();
-            },
-            child: Text("Future note")),
-        const SizedBox(height: 50),
 
         const StreamBasic(),
         const SizedBox(height: 50),
@@ -79,26 +67,27 @@ class _StreamScreenState extends State<StreamScreen>
 
         const SizedBox(height: 50),
 
-        _divider,
-        const SizedBox(height: 50),
-        ScaleAnimationWidget(
-          child: Container(
-            width: 150,
-            height: 150,
-            decoration: const BoxDecoration(
-                color: Colors.purpleAccent,
-                borderRadius: BorderRadius.all(Radius.circular(100))),
-          ),
-          child_2: Container(
-            width: 150,
-            height: 150,
-            decoration: BoxDecoration(
-                color: Colors.purpleAccent.withOpacity(0.5),
-                borderRadius: const BorderRadius.all(Radius.circular(100))),
-          ),
-        ),
+        // _divider,
+        // const SizedBox(height: 50),
+        // ScaleAnimationWidget(
+        //   child: Container(
+        //     width: 150,
+        //     height: 150,
+        //     decoration: const BoxDecoration(
+        //         color: Colors.purpleAccent,
+        //         borderRadius: BorderRadius.all(Radius.circular(100))),
+        //   ),
+        //   child_2: Container(
+        //     width: 150,
+        //     height: 150,
+        //     decoration: BoxDecoration(
+        //         color: Colors.purpleAccent.withOpacity(0.5),
+        //         borderRadius: const BorderRadius.all(Radius.circular(100))),
+        //   ),
+        // ),
+        //
+        // const SizedBox(height: 50),
 
-        const SizedBox(height: 50),
         _divider,
         const SizedBox(height: 50),
         const StreamBuilderTest(),
